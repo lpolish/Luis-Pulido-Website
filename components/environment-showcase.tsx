@@ -231,7 +231,7 @@ function ContactForm({ onClose }: ContactFormProps) {
             >
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <p className="text-lg mb-4">Your message has been sent successfully!</p>
-              <p>I'll get back to you as soon as possible.</p>
+              <p>I&apos;ll get back to you as soon as possible.</p>
               <Button onClick={onClose} className="mt-6">
                 Close
               </Button>
