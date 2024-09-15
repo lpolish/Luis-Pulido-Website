@@ -7,7 +7,7 @@ import * as THREE from 'three'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { ChevronLeft, ChevronRight, Menu, X, ZoomIn, ZoomOut, Play, Pause } from "lucide-react"
+import { ChevronLeft, ChevronRight, Menu, X, ZoomIn, ZoomOut, Play, Pause, CheckCircle } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const environments = [
@@ -35,9 +35,9 @@ function createRandomShape(): THREE.ShapeGeometry {
   const shape = new THREE.Shape()
   const width = 2
   const height = 0.75
-  
+
   shape.moveTo(-width/2, -height/2)
-  
+
   for (let i = 0; i < 4; i++) {
     const x = i % 2 === 0 ? width/2 : -width/2
     const y = i < 2 ? height/2 : -height/2
@@ -46,7 +46,7 @@ function createRandomShape(): THREE.ShapeGeometry {
     
     shape.quadraticCurveTo(x + controlX, y + controlY, x, y)
   }
-  
+
   shape.closePath()
   return new THREE.ShapeGeometry(shape)
 }
@@ -171,6 +171,7 @@ interface ContactFormProps {
 function ContactForm({ onClose }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -193,7 +194,7 @@ function ContactForm({ onClose }: ContactFormProps) {
         throw new Error('Failed to send message')
       }
 
-      onClose()
+      setIsSubmitted(true)
     } catch (error) {
       setSubmitError("Failed to send message. Please try again.")
     } finally {
@@ -211,29 +212,58 @@ function ContactForm({ onClose }: ContactFormProps) {
     >
       <div className="bg-gray-900 text-white rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Contact Me</h2>
+          <h2 className="text-2xl font-bold">
+            {isSubmitted ? "Thank You!" : "Contact Me"}
+          </h2>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-6 w-6" />
+            <span className="sr-only">Close</span>
           </Button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium">Name</label>
-            <Input id="name" name="name" type="text" placeholder="Your name" required className="bg-gray-800 border-gray-700 text-white" />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">Email</label>
-            <Input id="email" name="email" type="email" placeholder="Your email" required className="bg-gray-800 border-gray-700 text-white" />
-          </div>
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium">Message</label>
-            <Textarea id="message" name="message" placeholder="Your message" required className="bg-gray-800 border-gray-700 text-white" />
-          </div>
-          {submitError && <p className="text-red-500">{submitError}</p>}
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </Button>
-        </form>
+        <AnimatePresence mode="wait">
+          {isSubmitted ? (
+            <motion.div
+              key="thank-you"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center"
+            >
+              <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+              <p className="text-lg mb-4">Your message has been sent successfully!</p>
+              <p>I'll get back to you as soon as possible.</p>
+              <Button onClick={onClose} className="mt-6">
+                Close
+              </Button>
+            </motion.div>
+          ) : (
+            <motion.form
+              key="contact-form"
+              onSubmit={handleSubmit}
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium">Name</label>
+                <Input id="name" name="name" type="text" placeholder="Your name" required className="bg-gray-800 border-gray-700 text-white" />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium">Email</label>
+                <Input id="email" name="email" type="email" placeholder="Your email" required className="bg-gray-800 border-gray-700 text-white" />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium">Message</label>
+                <Textarea id="message" name="message" placeholder="Your message" required className="bg-gray-800 border-gray-700 text-white" />
+              </div>
+              {submitError && <p className="text-red-500" role="alert">{submitError}</p>}
+              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </Button>
+            </motion.form>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   )
@@ -285,7 +315,7 @@ export function EnvironmentShowcase() {
     <div className="w-full h-screen relative">
       <div className="absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-50 text-white">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Luis Pulido</h1>
+          <h1 className="text-xl font-bold cursor-default tracking-tight">Luis Pulido Díaz</h1>
           <Button onClick={() => setMenuOpen(!menuOpen)} variant="ghost" size="icon">
             <Menu className="h-6 w-6" />
           </Button>
