@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://luispulido.com
+
+# Sitemaps
+Sitemap: https://luispulido.com/sitemap.xml
