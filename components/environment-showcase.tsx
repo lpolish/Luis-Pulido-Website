@@ -29,6 +29,9 @@ const menuItems = [
   { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
   { name: "LinkedIn", path: "https://linkedin.com/in/lpulido" },
   { name: "Chrome Extensions", path: "https://chromewebstore.google.com/search/Luis%20Pulido" },
+  { name: "Linktree", path: "https://linktr.ee/polishai" },
+  { name: "GitHub", path: "https://github.com/lpolish" },
+  { name: "Github alt", path: "https://github.com/africanmx" },
 ]
 
 function createRandomShape(): THREE.ShapeGeometry {
@@ -36,14 +39,14 @@ function createRandomShape(): THREE.ShapeGeometry {
   const width = 2
   const height = 0.75
 
-  shape.moveTo(-width/2, -height/2)
+  shape.moveTo(-width / 2, -height / 2)
 
   for (let i = 0; i < 4; i++) {
-    const x = i % 2 === 0 ? width/2 : -width/2
-    const y = i < 2 ? height/2 : -height/2
+    const x = i % 2 === 0 ? width / 2 : -width / 2
+    const y = i < 2 ? height / 2 : -height / 2
     const controlX = (Math.random() - 0.5) * 0.2
     const controlY = (Math.random() - 0.5) * 0.2
-    
+
     shape.quadraticCurveTo(x + controlX, y + controlY, x, y)
   }
 
@@ -61,8 +64,8 @@ function AbstractForm() {
 
     for (let i = 0; i < positions.length; i += 3) {
       const noise = Math.sin(positions[i] * 5) * 0.15 +
-                    Math.sin(positions[i + 1] * 5) * 0.15 +
-                    Math.sin(positions[i + 2] * 5) * 0.15
+        Math.sin(positions[i + 1] * 5) * 0.15 +
+        Math.sin(positions[i + 2] * 5) * 0.15
       positions[i] += normals[i] * noise
       positions[i + 1] += normals[i + 1] * noise
       positions[i + 2] += normals[i + 2] * noise
@@ -152,12 +155,13 @@ function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProp
     <>
       <Environment preset={environment} background />
       <AbstractForm />
-      <FloatingLink href="https://medicaldevs.com" position={[-4, 2, -5]} isContactFormOpen={isContactFormOpen}>Fresh Health News</FloatingLink>
-      <FloatingLink href="https://twitter.com/pulidoman" position={[4, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
-      <FloatingLink href="https://instagram.com/lu1s0n1" position={[-5, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
-      <FloatingLink href="https://linkedin.com/in/lpulido" position={[5, 1, -6]} isContactFormOpen={isContactFormOpen}>LinkedIn</FloatingLink>
-      <FloatingLink href="https://chromewebstore.google.com/search/Luis%20Pulido" position={[0, 3, -7]} isContactFormOpen={isContactFormOpen}>Chrome Extensions</FloatingLink>
-      <FloatingLink href="https://linktr.ee/polishai" position={[3, 2, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
+      <FloatingLink href="https://medicaldevs.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>Fresh Health News</FloatingLink>
+      <FloatingLink href="https://twitter.com/pulidoman" position={[6, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
+      <FloatingLink href="https://instagram.com/lu1s0n1" position={[-6, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
+      <FloatingLink href="https://linkedin.com/in/lpulido" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>LinkedIn</FloatingLink>
+      <FloatingLink href="https://chromewebstore.google.com/search/Luis%20Pulido" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen}>Chrome Extensions</FloatingLink>
+      <FloatingLink href="https://linktr.ee/polishai" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
+      <FloatingLink href="https://github.com/lpolish" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
       <FloatingLink position={[-3, -2, -6]} onClick={() => setShowContactForm(true)} isContactFormOpen={isContactFormOpen}>Contact</FloatingLink>
       <directionalLight position={[5, 5, 5]} intensity={0.5} />
     </>
