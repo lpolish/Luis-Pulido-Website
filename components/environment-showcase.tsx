@@ -39,14 +39,14 @@ function createRandomShape(): THREE.ShapeGeometry {
   const width = 2
   const height = 0.75
 
-  shape.moveTo(-width / 2, -height / 2)
+  shape.moveTo(-width/2, -height/2)
 
   for (let i = 0; i < 4; i++) {
-    const x = i % 2 === 0 ? width / 2 : -width / 2
-    const y = i < 2 ? height / 2 : -height / 2
+    const x = i % 2 === 0 ? width/2 : -width/2
+    const y = i < 2 ? height/2 : -height/2
     const controlX = (Math.random() - 0.5) * 0.2
     const controlY = (Math.random() - 0.5) * 0.2
-
+    
     shape.quadraticCurveTo(x + controlX, y + controlY, x, y)
   }
 
@@ -64,8 +64,8 @@ function AbstractForm() {
 
     for (let i = 0; i < positions.length; i += 3) {
       const noise = Math.sin(positions[i] * 5) * 0.15 +
-        Math.sin(positions[i + 1] * 5) * 0.15 +
-        Math.sin(positions[i + 2] * 5) * 0.15
+                    Math.sin(positions[i + 1] * 5) * 0.15 +
+                    Math.sin(positions[i + 2] * 5) * 0.15
       positions[i] += normals[i] * noise
       positions[i + 1] += normals[i + 1] * noise
       positions[i + 2] += normals[i + 2] * noise
@@ -313,13 +313,13 @@ export function EnvironmentShowcase() {
     }
   }, [autoRotate])
 
-  const buttonClass = "w-10 h-10 bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 transition-colors rounded-full flex items-center justify-center"
+  const buttonClass = "w-8 h-8 sm:w-10 sm:h-10 bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 transition-colors rounded-full flex items-center justify-center"
 
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-screen relative flex flex-col">
       <div className="absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-50 text-white">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-xl font-bold cursor-default tracking-tight">Luis Pulido Díaz</h1>
+          <h1 className="text-xl sm:text-2xl font-bold cursor-default text-gray-100 hover:text-white transition-colors">Luis Pulido Díaz</h1>
           <Button onClick={() => setMenuOpen(!menuOpen)} variant="ghost" size="icon">
             <Menu className="h-6 w-6" />
           </Button>
@@ -327,7 +327,7 @@ export function EnvironmentShowcase() {
       </div>
       <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-sm">
         <div className="container mx-auto px-4 py-2">
-          <p className="text-sm text-center">
+          <p className="text-xs sm:text-sm text-center">
             Software Engineer &amp; Web Developer. <span className="hover:underline cursor-pointer" onClick={() => setShowContactForm(true)}>Contact me to build your next project</span>.
           </p>
         </div>
@@ -344,41 +344,43 @@ export function EnvironmentShowcase() {
           </button>
         </div>
       )}
-      <Canvas>
-        <PerspectiveCamera makeDefault position={[0, 0, 10]} ref={cameraRef} />
-        <Scene environment={environments[currentEnv]} setShowContactForm={setShowContactForm} isContactFormOpen={showContactForm} />
-        <OrbitControls
-          ref={orbitControlsRef}
-          enableZoom={true}
-          enablePan={true}
-          enableRotate={true}
-          zoomSpeed={0.5}
-          panSpeed={0.5}
-          rotateSpeed={0.5}
-          minDistance={5}
-          maxDistance={20}
-          autoRotate={autoRotate}
-          autoRotateSpeed={1}
-        />
-      </Canvas>
-      <div className="absolute bottom-8 left-8 right-8 flex justify-between items-center">
+      <div className="flex-grow">
+        <Canvas>
+          <PerspectiveCamera makeDefault position={[0, 0, 10]} ref={cameraRef} />
+          <Scene environment={environments[currentEnv]} setShowContactForm={setShowContactForm} isContactFormOpen={showContactForm} />
+          <OrbitControls
+            ref={orbitControlsRef}
+            enableZoom={true}
+            enablePan={true}
+            enableRotate={true}
+            zoomSpeed={0.5}
+            panSpeed={0.5}
+            rotateSpeed={0.5}
+            minDistance={5}
+            maxDistance={20}
+            autoRotate={autoRotate}
+            autoRotateSpeed={1}
+          />
+        </Canvas>
+      </div>
+      <div className="absolute bottom-24 md:bottom-0 left-4 right-4 flex justify-between items-center">
         <div className="flex space-x-2">
           <Button onClick={prevEnv} variant="outline" size="icon" className={buttonClass}>
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
           <Button onClick={nextEnv} variant="outline" size="icon" className={buttonClass}>
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
         <div className="flex space-x-2">
           <Button onClick={handleZoomIn} variant="outline" size="icon" className={buttonClass}>
-            <ZoomIn className="h-5 w-5" />
+            <ZoomIn className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
           <Button onClick={handleZoomOut} variant="outline" size="icon" className={buttonClass}>
-            <ZoomOut className="h-5 w-5" />
+            <ZoomOut className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
           <Button onClick={toggleAutoRotate} variant="outline" size="icon" className={buttonClass}>
-            {autoRotate ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+            {autoRotate ? <Pause className="h-4 w-4 sm:h-5 sm:w-5" /> : <Play className="h-4 w-4 sm:h-5 sm:w-5" />}
           </Button>
         </div>
       </div>
