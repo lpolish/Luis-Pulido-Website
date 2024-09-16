@@ -328,7 +328,7 @@ export function EnvironmentShowcase() {
       <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-sm">
         <div className="container mx-auto px-4 py-2">
           <p className="text-xs sm:text-sm text-center">
-            Software Engineer &amp; Web Developer. <span className="hover:underline cursor-pointer" onClick={() => setShowContactForm(true)}>Contact me to build your next project</span>.
+            Software Engineer &amp; Web Developer. <span className="hover:underline cursor-pointer" onClick={() => setShowContactForm(true)}>Contact Me to Build Your Next Project</span>.
           </p>
         </div>
       </div>
