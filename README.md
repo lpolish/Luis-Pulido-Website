@@ -56,19 +56,15 @@ Follow these steps to get the project running on your local machine:
 
 2. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-### Building for Production
+### Publishing to Production
 
-To create a production-ready build:
-
-```bash
-pnpm build
-```
-
-Then, you can start the production server:
+To publish just do:
 
 ```bash
 vercel --prod
 ```
+
+Or plug this repository into any build system that supports Nextjs (Netlify, Firebase, Amplify, Surge, Fly).
 
 ## Project Structure
 
