@@ -43,9 +43,7 @@ Follow these steps to get the project running on your local machine:
 2. Install the dependencies:
 
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 ### Running the Development Server
@@ -53,9 +51,7 @@ Follow these steps to get the project running on your local machine:
 1. Start the development server:
 
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   pnpm dev
    ```
 
 2. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
