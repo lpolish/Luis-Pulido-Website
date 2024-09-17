@@ -61,17 +61,13 @@ Follow these steps to get the project running on your local machine:
 To create a production-ready build:
 
 ```bash
-npm run build
-# or
-yarn build
+pnpm build
 ```
 
 Then, you can start the production server:
 
 ```bash
-npm start
-# or
-yarn start
+vercel --prod
 ```
 
 ## Project Structure
