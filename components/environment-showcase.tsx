@@ -159,9 +159,9 @@ function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProp
       <FloatingLink href="https://twitter.com/pulidoman" position={[6, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
       <FloatingLink href="https://instagram.com/lu1s0n1" position={[-6, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
       <FloatingLink href="https://linkedin.com/in/lpulido" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>LinkedIn</FloatingLink>
-      <FloatingLink href="https://chromewebstore.google.com/search/Luis%20Pulido" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen}>Chrome Extensions</FloatingLink>
+      <FloatingLink href="https://chromewebstore.google.com/search/Luis%20Pulido" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Chrome Extensions</FloatingLink>
       <FloatingLink href="https://linktr.ee/polishai" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
-      <FloatingLink href="https://github.com/lpolish" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
+      <FloatingLink href="https://github.com/lpolish" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
       <FloatingLink position={[-3, -2, -6]} onClick={() => setShowContactForm(true)} isContactFormOpen={isContactFormOpen}>Contact</FloatingLink>
       <directionalLight position={[5, 5, 5]} intensity={0.5} />
     </>
@@ -208,11 +208,10 @@ function ContactForm({ onClose }: ContactFormProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4"
-      style={{ zIndex: 9999 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-[99999999]"
     >
       <div className="bg-gray-900 text-white rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
@@ -244,7 +243,7 @@ function ContactForm({ onClose }: ContactFormProps) {
             <motion.form
               key="contact-form"
               onSubmit={handleSubmit}
-              className="space-y-4"
+              className="space-y-4 z-[99999999]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -317,32 +316,42 @@ export function EnvironmentShowcase() {
 
   return (
     <div className="w-full h-screen relative flex flex-col">
-      <div className="absolute top-0 left-0 right-0 z-10 bg-black bg-opacity-50 text-white">
+      <div className="absolute top-0 left-0 right-0 z-[99999999] bg-black bg-opacity-50 text-white backdrop-blur-sm">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-xl sm:text-2xl font-bold cursor-default text-gray-100 hover:text-white transition-colors">Luis Pulido Díaz</h1>
+          <h1 className="upptercase text-xl sm:text-2xl font-bold cursor-default text-gray-100 hover:text-white transition-colors">Luis Pulido Díaz</h1>
           <Button onClick={() => setMenuOpen(!menuOpen)} variant="ghost" size="icon">
             <Menu className="h-6 w-6" />
           </Button>
         </div>
       </div>
-      <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-sm">
+      <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-md">
         <div className="container mx-auto px-4 py-2">
-          <p className="text-xs sm:text-sm text-center">
-            Software Engineer &amp; Web Developer. <span className="hover:underline cursor-pointer" onClick={() => setShowContactForm(true)}>Contact Me to Build Your Next Project</span>.
+          <p className="sm:text-sm text-left">
+            <a className="uppercase hover:underline cursor-pointer text-2xs" onClick={(e) => {e.preventDefault() ; setShowContactForm(true)}}>Contact Me to Build Your Next Web Project</a>
           </p>
         </div>
       </div>
       {menuOpen && (
-        <div className="absolute top-16 right-4 z-20 bg-black bg-opacity-75 text-white p-4 rounded-lg">
-          {menuItems.map((item) => (
-            <a key={item.path} href={item.path} target="_blank" rel="noopener noreferrer" className="block py-2 hover:text-blue-300 transition-colors">
-              {item.name}
-            </a>
-          ))}
-          <button onClick={() => setShowContactForm(true)} className="block py-2 hover:text-blue-300 transition-colors">
-            Contact
-          </button>
-        </div>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed top-0 left-0 w-full h-full z-[99999999] bg-black bg-opacity-95 text-white px-12 pb-12 pt-12 md:pt-36 backdrop-blur-md text-center"
+            >
+              <X className="h-6 w-6 absolute top-4 right-4 cursor-pointer" onClick={() => setMenuOpen(false)} />
+              {menuItems.map((item) => (
+          <a key={item.path} href={item.path} target="_blank" rel="noopener noreferrer" className="block py-2 hover:text-blue-300 transition-colors mb-4 md:mb-8">
+            {item.name}
+          </a>
+              ))}
+              <button onClick={() => setShowContactForm(true)} className="block py-2 hover:text-blue-300 transition-colors mx-auto">
+          Contact
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       )}
       <div className="flex-grow">
         <Canvas>
