@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Josefin_Sans } from 'next/font/google'
 import localFont from "next/font/local";
 import "./globals.css";
+import RotatingFavicon from "@/components/rotating-favicon";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <RotatingFavicon />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.className} antialiased`}
       >
