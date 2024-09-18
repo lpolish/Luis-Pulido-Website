@@ -276,7 +276,7 @@ export function EnvironmentShowcase() {
   const [currentEnv, setCurrentEnv] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
-  const [autoRotate, setAutoRotate] = useState(false)
+  const [autoRotate, setAutoRotate] = useState(true)
   const orbitControlsRef = useRef<any>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera>(null)
 
