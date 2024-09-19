@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import Image from "next/image"
+import { X } from "lucide-react"
 
 type Card = {
   id: number
@@ -21,13 +21,13 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
   const [flippedCards, setFlippedCards] = useState<number[]>([])
   const [matchedPairs, setMatchedPairs] = useState<number>(0)
   const [level, setLevel] = useState<number>(1)
-  const [showTime, setShowTime] = useState<number>(10)
   const [timeLeft, setTimeLeft] = useState<number>(10)
   const [isShowingCards, setIsShowingCards] = useState<boolean>(true)
   const [gameStarted, setGameStarted] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
-  const initializeGame = () => {
+  const initializeGame = useCallback(() => {
     const totalCards = 12
     const imageNumbers = Array.from({ length: 154 }, (_, i) => i + 1)
     const shuffledImageNumbers = imageNumbers.sort(() => Math.random() - 0.5).slice(0, totalCards / 2)
@@ -44,50 +44,48 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
     setCards(newCards)
     setFlippedCards([])
     setMatchedPairs(0)
-    setShowTime(10)
     setTimeLeft(10)
     setIsShowingCards(true)
     setGameStarted(true)
-  }
+    setIsProcessing(false)
+  }, [])
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setLevel(1)
     initializeGame()
-  }
+  }, [initializeGame])
 
-  const handleCardClick = (id: number) => {
-    if (isShowingCards || flippedCards.length === 2) return
+  const handleCardClick = useCallback((id: number) => {
+    if (isShowingCards || isProcessing || flippedCards.length === 2) return
 
-    setCards((prevCards) =>
-      prevCards.map((card) =>
+    setFlippedCards(prev => [...prev, id])
+    setCards(prevCards => 
+      prevCards.map(card => 
         card.id === id ? { ...card, isFlipped: true } : card
       )
     )
-
-    setFlippedCards((prev) => [...prev, id])
-  }
+  }, [isShowingCards, isProcessing, flippedCards.length])
 
   useEffect(() => {
     if (flippedCards.length === 2) {
+      setIsProcessing(true)
       const [first, second] = flippedCards
       if (cards[first].image === cards[second].image) {
-        setCards((prevCards) =>
-          prevCards.map((card) =>
-            card.id === first || card.id === second
-              ? { ...card, isMatched: true }
-              : card
+        setCards(prevCards => 
+          prevCards.map(card => 
+            card.id === first || card.id === second ? { ...card, isMatched: true } : card
           )
         )
-        setMatchedPairs((prev) => prev + 1)
+        setMatchedPairs(prev => prev + 1)
+        setIsProcessing(false)
       } else {
         setTimeout(() => {
-          setCards((prevCards) =>
-            prevCards.map((card) =>
-              card.id === first || card.id === second
-                ? { ...card, isFlipped: false }
-                : card
+          setCards(prevCards => 
+            prevCards.map(card => 
+              card.id === first || card.id === second ? { ...card, isFlipped: false } : card
             )
           )
+          setIsProcessing(false)
         }, 1000)
       }
       setFlippedCards([])
@@ -96,24 +94,19 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
 
   useEffect(() => {
     if (matchedPairs === cards.length / 2 && gameStarted) {
-      setLevel((prev) => prev + 1)
-      setShowTime((prev) => Math.max(prev - 2, 3))
-      setTimeout(() => {
-        initializeGame()
-      }, 1500)
+      setLevel(prev => prev + 1)
+      setTimeout(initializeGame, 1500)
     }
-  }, [matchedPairs, cards.length, gameStarted])
+  }, [matchedPairs, cards.length, gameStarted, initializeGame])
 
   useEffect(() => {
     let timer: NodeJS.Timeout
     if (isShowingCards && gameStarted) {
       timer = setInterval(() => {
-        setTimeLeft((prev) => {
+        setTimeLeft(prev => {
           if (prev <= 1) {
             clearInterval(timer)
-            setCards((prevCards) =>
-              prevCards.map((card) => ({ ...card, isFlipped: false }))
-            )
+            setCards(prevCards => prevCards.map(card => ({ ...card, isFlipped: false })))
             setIsShowingCards(false)
             return 0
           }
@@ -122,7 +115,7 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
       }, 1000)
     }
     return () => clearInterval(timer)
-  }, [isShowingCards, gameStarted, showTime])
+  }, [isShowingCards, gameStarted])
 
   const GameContent = () => (
     <div className="flex flex-col items-center justify-center w-full h-full bg-gray-900 p-4 text-white">
@@ -144,21 +137,21 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
             {cards.map((card) => (
               <div
                 key={card.id}
-                className={`aspect-square relative overflow-hidden ${
-                  card.isFlipped ? "bg-gray-700" : "bg-purple-800"
-                } ${isShowingCards ? "pointer-events-none" : ""}`}
-                onClick={() => !isShowingCards && handleCardClick(card.id)}
+                className="aspect-square relative overflow-hidden bg-purple-800 cursor-pointer"
+                onClick={() => handleCardClick(card.id)}
               >
-                {card.isFlipped || card.isMatched ? (
-                  <Image 
-                    src={card.image} 
-                    alt="Alebrije"
-                    layout="fill"
-                    objectFit="cover"
-                    className={card.isMatched ? "opacity-70" : ""}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
+                <div 
+                  className={`absolute inset-0 transition-transform duration-300 ${
+                    card.isFlipped || card.isMatched ? 'rotate-0' : 'rotate-90'
+                  }`}
+                  style={{
+                    backgroundImage: `url(${card.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                {(!card.isFlipped && !card.isMatched) && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-purple-800">
                     <span className="text-2xl sm:text-3xl md:text-4xl text-white">?</span>
                   </div>
                 )}
@@ -185,7 +178,16 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 overflow-auto bg-transparent border-none">
-          <GameContent />
+          <div className="relative w-full h-full bg-gray-900">
+            <Button
+              className="absolute top-2 right-2 z-50 bg-transparent hover:bg-gray-800 text-gray-400 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              <X className="h-6 w-6" />
+              <span className="sr-only">Close</span>
+            </Button>
+            <GameContent />
+          </div>
         </DialogContent>
       </Dialog>
     )
