@@ -53,7 +53,6 @@ export default function AlebrijesPage() {
         <div className={`relative left-0 right-0 z-10 transition-all duration-300 ${isScrollingUp ? 'visible' : 'hidden'}`}>
           <div className="container mx-auto px-4 py-2 text-white">
             <p className="uppercase text-2xs text-left">
-              Some of the alebrijes I have been working on every now and then using different generative models. I hope you like them. <br/><a className="hover:underline cursor-pointer" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>Contact me if you want them in canvas shipped to your door.</a> <br /><br />
               <a className="hover:underline cursor-pointer text-2xs" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>Contact Me to Build your Next Website</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" target="_blank" rel="noopener noreferrer">Book a Pair Session with Me</a>.
             </p>
           </div>

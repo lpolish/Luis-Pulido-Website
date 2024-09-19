@@ -107,6 +107,11 @@ export function AlebrijesGallery() {
 
   return (
     <div className="bg-gray-900 text-white p-4">
+      <div className="mt-24 mb-8 pt-2 max-w-[69rem] mx-auto">
+        <p className="text-center text-lg sm:text-base mt-2">
+          A collection of {TOTAL_IMAGES} colorful Alebrijes made every now and then using different generative models. Although they were created using AI and prompts, I would like to cheer to all the real alebrije artists out there who have been creating these creatures for years.
+        </p>
+      </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {images.map((image, i) => (
           <div key={image.id} className="aspect-square relative overflow-hidden rounded-lg cursor-pointer hover:opacity-80 transition-opacity">
