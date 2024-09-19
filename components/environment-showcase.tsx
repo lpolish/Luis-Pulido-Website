@@ -25,13 +25,13 @@ const environments = [
 
 const menuItems = [
   { name: "Fresh Health News", path: "https://medicaldevs.com" },
+  { name: "Alebrijes Gallery", path: "/alebrijes", sameTarget: true },
   { name: "X", path: "https://twitter.com/pulidoman" },
   { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
   { name: "LinkedIn", path: "https://linkedin.com/in/lpulido" },
-  { name: "Chrome Extensions", path: "https://chromewebstore.google.com/search/Luis%20Pulido" },
-  { name: "Linktree", path: "https://linktr.ee/polishai" },
+  { name: "More Links", path: "https://linktr.ee/polishai" },
   { name: "GitHub", path: "https://github.com/lpolish" },
-  { name: "Github alt", path: "https://github.com/africanmx" },
+  { name: "Book Pair Programming", path: "https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" },
 ]
 
 function createRandomShape(): THREE.ShapeGeometry {
@@ -39,14 +39,14 @@ function createRandomShape(): THREE.ShapeGeometry {
   const width = 2
   const height = 0.75
 
-  shape.moveTo(-width/2, -height/2)
+  shape.moveTo(-width / 2, -height / 2)
 
   for (let i = 0; i < 4; i++) {
-    const x = i % 2 === 0 ? width/2 : -width/2
-    const y = i < 2 ? height/2 : -height/2
+    const x = i % 2 === 0 ? width / 2 : -width / 2
+    const y = i < 2 ? height / 2 : -height / 2
     const controlX = (Math.random() - 0.5) * 0.2
     const controlY = (Math.random() - 0.5) * 0.2
-    
+
     shape.quadraticCurveTo(x + controlX, y + controlY, x, y)
   }
 
@@ -64,8 +64,8 @@ function AbstractForm() {
 
     for (let i = 0; i < positions.length; i += 3) {
       const noise = Math.sin(positions[i] * 5) * 0.15 +
-                    Math.sin(positions[i + 1] * 5) * 0.15 +
-                    Math.sin(positions[i + 2] * 5) * 0.15
+        Math.sin(positions[i + 1] * 5) * 0.15 +
+        Math.sin(positions[i + 2] * 5) * 0.15
       positions[i] += normals[i] * noise
       positions[i + 1] += normals[i + 1] * noise
       positions[i + 2] += normals[i + 2] * noise
@@ -96,12 +96,14 @@ interface FloatingLinkProps {
   position: [number, number, number]
   onClick?: () => void
   isContactFormOpen: boolean
+  sameTarget?: boolean
 }
 
-function FloatingLink({ children, href, position, onClick, isContactFormOpen }: FloatingLinkProps) {
+function FloatingLink({ children, href, position, onClick, isContactFormOpen, sameTarget = false }: FloatingLinkProps) {
   const { camera } = useThree()
   const groupRef = useRef<THREE.Group>(null)
   const shapeGeometry = useRef<THREE.ShapeGeometry>(createRandomShape())
+  const target = sameTarget ? "_self" : "_blank"
 
   useFrame(() => {
     if (groupRef.current) {
@@ -133,7 +135,7 @@ function FloatingLink({ children, href, position, onClick, isContactFormOpen }: 
                 {children}
               </button>
             ) : (
-              <a href={href} target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-300 transition-colors">
+              <a href={href} target={target} rel="noopener noreferrer" className="text-white hover:text-blue-300 transition-colors">
                 {children}
               </a>
             )}
@@ -150,18 +152,55 @@ interface SceneProps {
   isContactFormOpen: boolean
 }
 
+// <!-- Google Calendar Appointment Scheduling begin -->
+// <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+// <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+// <script>
+// (function() {
+//   var target = document.currentScript;
+//   window.addEventListener('load', function() {
+//     calendar.schedulingButton.load({
+//       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1XxJTsN0LfqR5uMsw_nRudXRVb23OZjMymSThFjbsqbQq3EO6Q2Fh0SHzgpR_yfDG4fSxQEREU?gv=true',
+//       color: '#039BE5',
+//       label: 'Book an appointment',
+//       target,
+//     });
+//   });
+// })();
+// </script>
+// <!-- end Google Calendar Appointment Scheduling --></link>
+
+// <!-- Google Calendar Appointment Scheduling begin -->
+// <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+// <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+// <script>
+// (function() {
+//   var target = document.currentScript;
+//   window.addEventListener('load', function() {
+//     calendar.schedulingButton.load({
+//       url: 'https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true',
+//       color: '#039BE5',
+//       label: 'Book an appointment',
+//       target,
+//     });
+//   });
+// })();
+// </script>
+// <!-- end Google Calendar Appointment Scheduling --></link>
+
 function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProps) {
   return (
     <>
       <Environment preset={environment} background />
       <AbstractForm />
       <FloatingLink href="https://medicaldevs.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>Fresh Health News</FloatingLink>
+      <FloatingLink href="/alebrijes" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen} sameTarget={true}>Alebrijes Gallery</FloatingLink>
       <FloatingLink href="https://twitter.com/pulidoman" position={[6, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
       <FloatingLink href="https://instagram.com/lu1s0n1" position={[-6, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
       <FloatingLink href="https://linkedin.com/in/lpulido" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>LinkedIn</FloatingLink>
-      <FloatingLink href="https://chromewebstore.google.com/search/Luis%20Pulido" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Chrome Extensions</FloatingLink>
       <FloatingLink href="https://linktr.ee/polishai" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
-      <FloatingLink href="https://github.com/lpolish" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
+      <FloatingLink href="https://github.com/lpolish" position={[6, 4, -6]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
+      <FloatingLink href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Book Pair Programming</FloatingLink>
       <FloatingLink position={[-3, -2, -6]} onClick={() => setShowContactForm(true)} isContactFormOpen={isContactFormOpen}>Contact</FloatingLink>
       <directionalLight position={[5, 5, 5]} intensity={0.5} />
     </>
@@ -326,8 +365,8 @@ export function EnvironmentShowcase() {
       </div>
       <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-md">
         <div className="container mx-auto px-4 py-2">
-          <p className="sm:text-sm text-left">
-            <a className="uppercase hover:underline cursor-pointer text-2xs" onClick={(e) => {e.preventDefault() ; setShowContactForm(true)}}>Contact Me to Build Your Next Web Project</a>
+          <p className="uppercase text-2xs text-left">
+            <a className="hover:underline cursor-pointer text-2xs" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>Contact Me to Build Your Next Web Project</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" target="_blank" rel="noopener noreferrer">Book a Pair Programming Session</a>
           </p>
         </div>
       </div>
@@ -342,12 +381,12 @@ export function EnvironmentShowcase() {
             >
               <X className="h-6 w-6 absolute top-4 right-4 cursor-pointer" onClick={() => setMenuOpen(false)} />
               {menuItems.map((item) => (
-          <a key={item.path} href={item.path} target="_blank" rel="noopener noreferrer" className="block py-2 hover:text-blue-300 transition-colors mb-4 md:mb-8">
-            {item.name}
-          </a>
+                <a key={item.path} href={item.path} target={item.sameTarget ? '_self' : '_blank'} rel="noopener noreferrer" className="block py-2 hover:text-blue-300 transition-colors mb-4 md:mb-8">
+                  {item.name}
+                </a>
               ))}
               <button onClick={() => setShowContactForm(true)} className="block py-2 hover:text-blue-300 transition-colors mx-auto">
-          Contact
+                Contact
               </button>
             </motion.div>
           )}
