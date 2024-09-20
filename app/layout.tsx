@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next";
 import { Josefin_Sans } from 'next/font/google'
 import localFont from "next/font/local";
@@ -41,6 +42,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.className} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
