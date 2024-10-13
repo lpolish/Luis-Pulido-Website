@@ -155,7 +155,7 @@ export function AlebrijesGallery() {
               </div>
             )}
             <div className="absolute top-4 right-4 z-10">
-              <Button variant="ghost" size="icon" onClick={closeFullscreen}>
+              <Button className=" text-white hover:text-slate-50 hover:bg-gray-500 hover:bg-opacity-80 transition-colors" variant="ghost" size="icon" onClick={closeFullscreen}>
                 <X className="h-6 w-6" />
               </Button>
             </div>
