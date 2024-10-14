@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import Link from 'next/link'
 import { X } from "lucide-react"
 
 type Card = {
@@ -13,10 +14,11 @@ type Card = {
 }
 
 interface MemoryGameProps {
-  asButton?: boolean
+  asButton?: string
+  customText?: string
 }
 
-export default function MemoryGame({ asButton = false }: MemoryGameProps) {
+export default function MemoryGame({ asButton = 'false', customText = 'Play Memory Game' }: MemoryGameProps) {
   const [cards, setCards] = useState<Card[]>([])
   const [flippedCards, setFlippedCards] = useState<number[]>([])
   const [matchedPairs, setMatchedPairs] = useState<number>(0)
@@ -59,8 +61,8 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
     if (isShowingCards || isProcessing || flippedCards.length === 2) return
 
     setFlippedCards(prev => [...prev, id])
-    setCards(prevCards => 
-      prevCards.map(card => 
+    setCards(prevCards =>
+      prevCards.map(card =>
         card.id === id ? { ...card, isFlipped: true } : card
       )
     )
@@ -71,8 +73,8 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
       setIsProcessing(true)
       const [first, second] = flippedCards
       if (cards[first].image === cards[second].image) {
-        setCards(prevCards => 
-          prevCards.map(card => 
+        setCards(prevCards =>
+          prevCards.map(card =>
             card.id === first || card.id === second ? { ...card, isMatched: true } : card
           )
         )
@@ -80,8 +82,8 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
         setIsProcessing(false)
       } else {
         setTimeout(() => {
-          setCards(prevCards => 
-            prevCards.map(card => 
+          setCards(prevCards =>
+            prevCards.map(card =>
               card.id === first || card.id === second ? { ...card, isFlipped: false } : card
             )
           )
@@ -125,7 +127,7 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
         {isShowingCards && <p className="text-lg sm:text-xl font-semibold text-yellow-400">Time Left: {timeLeft}s</p>}
       </div>
       {!gameStarted ? (
-        <Button 
+        <Button
           onClick={initializeGame}
           className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 text-lg transition-all duration-200 ease-in-out"
         >
@@ -140,10 +142,9 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
                 className="aspect-square relative overflow-hidden bg-purple-800 cursor-pointer"
                 onClick={() => handleCardClick(card.id)}
               >
-                <div 
-                  className={`absolute inset-0 transition-transform duration-300 ${
-                    card.isFlipped || card.isMatched ? 'rotate-0' : 'rotate-90'
-                  }`}
+                <div
+                  className={`absolute inset-0 transition-transform duration-300 ${card.isFlipped || card.isMatched ? 'rotate-0' : 'rotate-90'
+                    }`}
                   style={{
                     backgroundImage: `url(${card.image})`,
                     backgroundSize: 'cover',
@@ -158,7 +159,7 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
               </div>
             ))}
           </div>
-          <Button 
+          <Button
             onClick={resetGame}
             className="mt-4 bg-transparent hover:bg-gray-800 text-gray-400 hover:text-white py-1 px-2 text-sm transition-all duration-200 ease-in-out"
           >
@@ -169,13 +170,19 @@ export default function MemoryGame({ asButton = false }: MemoryGameProps) {
     </div>
   )
 
-  if (asButton) {
+  if (asButton != "false") {
     return (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 text-lg transition-all duration-200 ease-in-out">
-            Play Memory Game
-          </Button>
+          {(asButton === "true" || asButton === "button") ? (
+            <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 text-lg transition-all duration-200 ease-in-out">
+              {customText}
+            </Button>
+          ) : (
+            <Link href="#" className="hover:underline">
+              {customText}
+            </Link>
+          )}
         </DialogTrigger>
         <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 overflow-auto bg-transparent border-none">
           <div className="relative w-full h-full bg-gray-900">

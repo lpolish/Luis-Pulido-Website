@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight, Share2, ZoomIn, ZoomOut } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
+import Link from 'next/link'
 
 import MemoryGame from './memory-game'
 
@@ -109,16 +110,8 @@ export function AlebrijesGallery() {
 
   return (
     <div className="bg-gray-900 text-white p-4">
-      <div className="mt-24 mb-8 pt-2 max-w-[69rem] mx-auto">
-        <p className="text-center text-lg sm:text-base mt-2">
-          A collection of {TOTAL_IMAGES} colorful Alebrijes made every now and then using different generative models. Although they were created using AI and prompts, I would like to cheer to all the real alebrije artists out there who have been creating these creatures for years.
-        </p>
-        <p className="text-center text-xl sm:text-xl mt-5">
-          Want to play them as a memory game? Click the button below!
-        </p>
-        <div className="flex justify-center mt-4 mx-auto">
-          <MemoryGame asButton={true} />
-        </div>
+      <div className="mt-8 mb-8 pt-2 mx-auto">
+        Collection of {TOTAL_IMAGES} alebrijes and other original artwork. Available for high quality print, digital and custom products. Also <MemoryGame customText={"play them as a memory game"} asButton={"link"} />.
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {images.map((image, i) => (
