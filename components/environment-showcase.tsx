@@ -24,11 +24,12 @@ const environments = [
 ] as const
 
 const menuItems = [
-  { name: "Fresh Health News", path: "https://medicaldevs.com" },
+  { name: "Home", path: "/" },
+  { name: "Latest Medical News", path: "https://medicaldevs.com" },
   { name: "Alebrijes Gallery", path: "/alebrijes", sameTarget: true },
+  { name: "Audio Visualizers", path: "/audio-visualizers" },
   { name: "X", path: "https://twitter.com/pulidoman" },
   { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
-  { name: "LinkedIn", path: "https://linkedin.com/in/lpulido" },
   { name: "More Links", path: "https://linktr.ee/polishai" },
   { name: "GitHub", path: "https://github.com/lpolish" },
   { name: "Book Pair Programming", path: "https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" },
@@ -193,12 +194,12 @@ function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProp
     <>
       <Environment preset={environment} background />
       <AbstractForm />
-      <FloatingLink href="https://medicaldevs.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>Fresh Health News</FloatingLink>
+      <FloatingLink href="https://medicaldevs.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>Latest Medical News</FloatingLink>
       <FloatingLink href="/alebrijes" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen} sameTarget={true}>Alebrijes Gallery</FloatingLink>
       <FloatingLink href="https://twitter.com/pulidoman" position={[6, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
       <FloatingLink href="https://instagram.com/lu1s0n1" position={[-6, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
-      <FloatingLink href="https://linkedin.com/in/lpulido" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>LinkedIn</FloatingLink>
-      <FloatingLink href="https://linktr.ee/polishai" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
+      <FloatingLink href="/audio-visualizers" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen} sameTarget={true}>Audio Visualizers</FloatingLink>
+      <FloatingLink href="https://linktr.ee/polishai" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
       <FloatingLink href="https://github.com/lpolish" position={[6, 4, -6]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
       <FloatingLink href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Book Pair Programming</FloatingLink>
       <FloatingLink position={[-3, -2, -6]} onClick={() => setShowContactForm(true)} isContactFormOpen={isContactFormOpen}>Contact</FloatingLink>

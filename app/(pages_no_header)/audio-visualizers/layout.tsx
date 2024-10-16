@@ -21,24 +21,28 @@ const menuItems = [
   { name: "Other Links", path: "https://linktr.ee/polishai" },
 ];
 
-export default function AlebrijesPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [isScrollingUp, setIsScrollingUp] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [showContactForm, setShowContactForm] = useState<boolean>(false)
+  const [isScrollingUp, setIsScrollingUp] = useState<boolean>(true)
+  const [lastScrollY, setLastScrollY] = useState<number>(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrollingUp(currentScrollY < lastScrollY || currentScrollY === 0);
-      setLastScrollY(currentScrollY);
-    };
+      const currentScrollY = window.scrollY
+      setIsScrollingUp(currentScrollY < lastScrollY || currentScrollY === 0)
+      setLastScrollY(currentScrollY)
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [lastScrollY])
 
   useEffect(() => {
     if (menuOpen) {
@@ -61,7 +65,7 @@ export default function AlebrijesPage() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm ${isScrollingUp ? 'bg-black bg-opacity-60 py-2' : 'bg-black bg-opacity-40 py-1'}`}>
         <div className="container mx-auto px-4 flex justify-between items-center">
           <h1 className={`${isScrollingUp ? 'text-md sm:text-xl' : 'text-sm sm:text-md'} font-bold cursor-default transition-all text-gray-100 hover:text-white`}>
-            <Link href="/" className='hover:underline'>Luis Pulido</Link> / Alebrijes Gallery
+            <Link href="/" className='hover:underline'>Luis Pulido</Link> / <Link href="/audio-visualizers" className="hover:underline">Audio Visualizers</Link>
           </h1>
           <Button 
             onClick={() => setMenuOpen(!menuOpen)} 
@@ -71,13 +75,6 @@ export default function AlebrijesPage() {
           >
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
-        </div>
-        <div className={`relative left-0 right-0 z-10 transition-all duration-300 ${isScrollingUp ? 'visible' : 'hidden'}`}>
-          <div className="container mx-auto px-4 py-1 text-white">
-            <p className="uppercase text-2xs text-left">
-              <a className="hover:underline cursor-pointer text-2xs" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>order prints or expo sets</a>
-            </p>
-          </div>
         </div>
       </header>
 
@@ -146,9 +143,11 @@ export default function AlebrijesPage() {
         )}
       </AnimatePresence>
 
-      <main className="bg-black pt-20">
-        <AlebrijesGallery />
+      <main className="bg-black">
+        {children}
       </main>
     </>
-  );
+  )
 }
+
+export default Layout

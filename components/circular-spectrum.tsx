@@ -35,7 +35,7 @@ const CircularSpectrum: React.FC = () => {
         audioContext.close()
       }
     }
-  }, [])
+  }, [audioContext])
 
   useEffect(() => {
     if (!canvasRef.current || !analyser) return

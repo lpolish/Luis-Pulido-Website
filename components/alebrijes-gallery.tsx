@@ -57,6 +57,7 @@ export function AlebrijesGallery() {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleObserver = (entities: IntersectionObserverEntry[]) => {
     const target = entities[0]
     if (target.isIntersecting && images.length < TOTAL_IMAGES) {
@@ -92,14 +93,14 @@ export function AlebrijesGallery() {
       observer.observe(loader.current)
     }
     return () => observer.disconnect()
-  }, [])
+  }, [handleObserver])
 
   useEffect(() => {
     if (page > 1) {
       const newImages = generateImages(images.length, Math.min(images.length + IMAGES_PER_PAGE, TOTAL_IMAGES))
       setImages(prev => [...prev, ...newImages])
     }
-  }, [page])
+  }, [images.length, page])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768)

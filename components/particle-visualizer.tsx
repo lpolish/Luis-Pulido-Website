@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
@@ -8,8 +8,13 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Fullscreen, Volume2 } from 'lucide-react'
 
-const ParticleSystem = ({ audioData, sensitivity }) => {
-  const particlesRef = useRef()
+interface ParticleSystemProps {
+  audioData: Float32Array
+  sensitivity: number
+}
+
+const ParticleSystem: React.FC<ParticleSystemProps> = ({ audioData, sensitivity }) => {
+  const particlesRef = useRef<THREE.Points>(null)
   const particleCount = 1000
   const [positions] = useState(() => new Float32Array(particleCount * 3))
   const [colors] = useState(() => new Float32Array(particleCount * 3))
@@ -23,11 +28,11 @@ const ParticleSystem = ({ audioData, sensitivity }) => {
       colors[i * 3 + 1] = Math.random()
       colors[i * 3 + 2] = Math.random()
     }
-  }, [])
+  }, [colors, positions])
 
   useFrame(() => {
     if (particlesRef.current) {
-      const positions = particlesRef.current.geometry.attributes.position.array
+      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3
         const audioIndex = i % audioData.length
@@ -62,7 +67,12 @@ const ParticleSystem = ({ audioData, sensitivity }) => {
   )
 }
 
-const Scene = ({ audioData, sensitivity }) => {
+interface SceneProps {
+  audioData: Float32Array
+  sensitivity: number
+}
+
+const Scene: React.FC<SceneProps> = ({ audioData, sensitivity }) => {
   return (
     <>
       <color attach="background" args={["#000000"]} />
@@ -74,20 +84,22 @@ const Scene = ({ audioData, sensitivity }) => {
   )
 }
 
-const ParticleVisualizer = () => {
-  const [audioData, setAudioData] = useState(new Float32Array(128).fill(0.1))
+const ParticleVisualizer: React.FC = () => {
+  const [audioData, setAudioData] = useState<Float32Array>(new Float32Array(128).fill(0.1))
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(true)
   const [sensitivity, setSensitivity] = useState(5)
   const [audioPermission, setAudioPermission] = useState(false)
-  const analyserRef = useRef()
-  const controlsTimeoutRef = useRef()
+  const analyserRef = useRef<AnalyserNode | null>(null)
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-    let audioContext, analyser, microphone
+    let audioContext: AudioContext
+    let analyser: AnalyserNode
+    let microphone: MediaStreamAudioSourceNode
 
     const setupAudio = async () => {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)()
+      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
       analyser = audioContext.createAnalyser()
       analyser.fftSize = 256
       analyserRef.current = analyser
@@ -117,7 +129,7 @@ const ParticleVisualizer = () => {
       if (analyserRef.current) {
         const data = new Uint8Array(analyserRef.current.frequencyBinCount)
         analyserRef.current.getByteFrequencyData(data)
-        const normalizedData = Array.from(data).map(value => value / 255)
+        const normalizedData = Float32Array.from(data, value => value / 255)
         setAudioData(normalizedData)
       }
       requestAnimationFrame(updateAudioData)
@@ -140,7 +152,9 @@ const ParticleVisualizer = () => {
 
   const handleMouseMove = () => {
     setShowControls(true)
-    clearTimeout(controlsTimeoutRef.current)
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current)
+    }
     controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000)
   }
 

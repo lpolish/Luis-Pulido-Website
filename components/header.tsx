@@ -14,11 +14,12 @@ export function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const menuItems = [
-    { name: "Fresh Health News", path: "https://medicaldevs.com" },
+    { name: "Home", path: "/" },
+    { name: "Latest Medical News", path: "https://medicaldevs.com" },
     { name: "Alebrijes Gallery", path: "/alebrijes" },
+    { name: "Audio Visualizers", path: "/audio-visualizers" },
     { name: "X", path: "https://twitter.com/pulidoman" },
     { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
-    { name: "LinkedIn", path: "https://linkedin.com/in/lpulido" },
     { name: "Chrome Extensions", path: "https://chromewebstore.google.com/search/Luis%20Pulido" },
     { name: "Linktree", path: "https://linktr.ee/polishai" },
     { name: "GitHub", path: "https://github.com/lpolish" },

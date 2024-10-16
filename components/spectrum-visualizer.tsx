@@ -249,37 +249,6 @@ export default function SpectrumVisualizer() {
     }
   }, [])
 
-  const startListening = useCallback(async () => {
-    await initializeAudioContext()
-    setIsListening(true)
-    animate()
-  }, [initializeAudioContext])
-
-  const stopListening = useCallback(() => {
-    setIsListening(false)
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current)
-      animationRef.current = undefined
-    }
-    // Clear the canvas when stopping the visualization
-    const canvas = canvasRef.current
-    const ctx = canvas?.getContext('2d')
-    if (canvas && ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-    }
-    // Reset audio context and stream
-    if (audioContextRef.current) {
-      audioContextRef.current.close().then(() => {
-        audioContextRef.current = null
-        analyserRef.current = null
-      })
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop())
-      streamRef.current = null
-    }
-  }, [])
-
   const animate = useCallback(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
@@ -315,6 +284,37 @@ export default function SpectrumVisualizer() {
 
     draw()
   }, [activeVisualizations, isListening])
+
+  const startListening = useCallback(async () => {
+    await initializeAudioContext()
+    setIsListening(true)
+    animate()
+  }, [animate, initializeAudioContext])
+
+  const stopListening = useCallback(() => {
+    setIsListening(false)
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current)
+      animationRef.current = undefined
+    }
+    // Clear the canvas when stopping the visualization
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+    if (canvas && ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+    // Reset audio context and stream
+    if (audioContextRef.current) {
+      audioContextRef.current.close().then(() => {
+        audioContextRef.current = null
+        analyserRef.current = null
+      })
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop())
+      streamRef.current = null
+    }
+  }, [])
 
   useEffect(() => {
     if (isListening) {
