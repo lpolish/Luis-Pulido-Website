@@ -1,6 +1,6 @@
 # My Website
 
-This project is an interactive 3D environment built with Next.js and Three.js. It features a dynamic 3D scene with interactive elements, environment controls, and a contact form.
+This project is an interactive 3D environment built with Next.js and Three.js. It features a dynamic 3D scene with interactive elements, environment controls, a contact form, and various visualizers.
 
 ## Features
 
@@ -10,6 +10,8 @@ This project is an interactive 3D environment built with Next.js and Three.js. I
 - Environment controls (zoom, rotate, auto-rotate)
 - Responsive design with mobile menu
 - Contact form with animated submission feedback
+- Multiple visualizers for different data representations
+- Responsive Alebrije gallery in /alebrijes
 
 ## Technologies Used
 
@@ -21,6 +23,7 @@ This project is an interactive 3D environment built with Next.js and Three.js. I
 - [shadcn/ui](https://ui.shadcn.com/) - Re-usable components built with Radix UI and Tailwind CSS
 - [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
 - [Lucide React](https://lucide.dev/) - Icon library
+- [D3.js](https://d3js.org/) - Data visualization library (for visualizers)
 
 ## Getting Started
 
@@ -68,17 +71,21 @@ Or plug this repository into any build system that supports Nextjs (Netlify, Fir
 
 ## Project Structure
 
-- `components/EnvironmentShowcase.tsx`: The main component containing the 3D environment and interactive elements.
-- `pages/index.tsx`: The main page that renders the EnvironmentShowcase component.
-- `pages/api/contact.ts`: API route for handling contact form submissions.
+- \`components/EnvironmentShowcase.tsx\`: The main component containing the 3D environment and interactive elements.
+- \`pages/index.tsx\`: The main page that renders the EnvironmentShowcase component.
+- \`pages/api/contact.ts\`: API route for handling contact form submissions.
+- \`pages/visualizers/\`: Directory containing various visualizer components.
+- \`pages/alebrijes/\`: Contains the responsive Alebrije gallery.
 
 ## Customization
 
 To customize the content or styling:
 
-1. Modify the `EnvironmentShowcase` component in `components/EnvironmentShowcase.tsx`.
+1. Modify the \`EnvironmentShowcase\` component in \`components/EnvironmentShowcase.tsx\`.
 2. Update the environment presets, floating links, or abstract form in the same file.
 3. Adjust the Tailwind CSS classes or add custom styles as needed.
+4. To add or modify visualizers, work in the \`pages/visualizers/\` directory.
+5. To update the Alebrije gallery, modify the components in \`pages/alebrijes/\`.
 
 ## Deployment
 
