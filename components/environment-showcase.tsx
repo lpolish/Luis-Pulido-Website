@@ -25,7 +25,7 @@ const environments = [
 
 const menuItems = [
   { name: "Home", path: "/" },
-  { name: "Latest Medical News", path: "https://medicaldevs.com" },
+  { name: "SummaQ QMS (Spanish)", path: "https://summaq.com" },
   { name: "Alebrijes Gallery", path: "/alebrijes", sameTarget: true },
   { name: "Audio Visualizers", path: "/audio-visualizers" },
   { name: "X", path: "https://twitter.com/pulidoman" },
