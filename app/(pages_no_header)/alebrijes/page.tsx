@@ -10,14 +10,13 @@ import Link from 'next/link';
 
 const menuItems = [
   { name: "Home", path: "/" },
-  { name: "Latest Medical News", path: "https://medicaldevs.com" },
-  { name: "Alebrijes Gallery", path: "/alebrijes" },
+  { name: "SummaQ QMS (Spanish)", path: "https://summaq.com" },
+  { name: "Alebrijes", path: "/alebrijes" },
   { name: "X", path: "https://twitter.com/pulidoman" },
   { name: "Instagram", path: "https://instagram.com/polishaii" },
   { name: "Audio Visualizers", path: "/audio-visualizers" },
   { name: "GitHub", path: "https://github.com/lpolish" },
   { name: "Github alt", path: "https://github.com/africanmx" },
-  { name: "Pair Programming", path: "https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" },
   { name: "Other Links", path: "https://linktr.ee/polishai" },
 ];
 
