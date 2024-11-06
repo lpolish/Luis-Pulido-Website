@@ -194,7 +194,7 @@ function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProp
     <>
       <Environment preset={environment} background />
       <AbstractForm />
-      <FloatingLink href="https://medicaldevs.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>Latest Medical News</FloatingLink>
+      <FloatingLink href="https://summaq.com" position={[-6, 2, -5]} isContactFormOpen={isContactFormOpen}>SummaQ QMS (Spanish)</FloatingLink>
       <FloatingLink href="/alebrijes" position={[0, 4, -7]} isContactFormOpen={isContactFormOpen} sameTarget={true}>Alebrijes Gallery</FloatingLink>
       <FloatingLink href="https://twitter.com/pulidoman" position={[6, -2, -5]} isContactFormOpen={isContactFormOpen}>X</FloatingLink>
       <FloatingLink href="https://instagram.com/lu1s0n1" position={[-6, -1, -4]} isContactFormOpen={isContactFormOpen}>Instagram</FloatingLink>
