@@ -15,8 +15,8 @@ export function Header() {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Latest Medical News", path: "https://medicaldevs.com" },
-    { name: "Alebrijes Gallery", path: "/alebrijes" },
+    { name: "SummaQ QMS (Spanish)", path: "https://summaq.com" },
+    { name: "Alebrijes", path: "/alebrijes" },
     { name: "Audio Visualizers", path: "/audio-visualizers" },
     { name: "X", path: "https://twitter.com/pulidoman" },
     { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
