@@ -52,7 +52,7 @@ export function Header() {
       <div className={`relative left-0 right-0 z-10 transition-all duration-300 ${isScrollingUp ? 'visible' : 'hidden'}`}>
         <div className="container mx-auto px-4 py-2 text-white">
           <p className="uppercase sm:text-2xs text-left">
-            <a className="hover:underline cursor-pointer text-2xs" href="/contact">Contact Me to Build Your Next Web Project</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" target="_blank" rel="noopener noreferrer">Book a Pair Programming Session</a>
+            <a className="hover:underline cursor-pointer text-2xs" href="/contact">Contact Me to Build Your Next Web Project</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://cal.com/luis-pulido" target="_blank" rel="noopener noreferrer">Book a Pair Programming Session</a>
           </p>
         </div>
       </div>

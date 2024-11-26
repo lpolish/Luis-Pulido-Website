@@ -32,7 +32,7 @@ const menuItems = [
   { name: "Instagram", path: "https://instagram.com/lu1s0n1" },
   { name: "More Links", path: "https://linktr.ee/polishai" },
   { name: "GitHub", path: "https://github.com/lpolish" },
-  { name: "Book Pair Programming", path: "https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" },
+  { name: "Book Pair Programming", path: "https://cal.com/luis-pulido" },
 ]
 
 function createRandomShape(): THREE.ShapeGeometry {
@@ -179,7 +179,7 @@ interface SceneProps {
 //   var target = document.currentScript;
 //   window.addEventListener('load', function() {
 //     calendar.schedulingButton.load({
-//       url: 'https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true',
+//       url: 'https://cal.com/luis-pulido',
 //       color: '#039BE5',
 //       label: 'Book an appointment',
 //       target,
@@ -201,7 +201,7 @@ function Scene({ environment, setShowContactForm, isContactFormOpen }: SceneProp
       <FloatingLink href="/audio-visualizers" position={[4, 3, -6]} isContactFormOpen={isContactFormOpen} sameTarget={true}>Audio Visualizers</FloatingLink>
       <FloatingLink href="https://linktr.ee/polishai" position={[6, 1, -6]} isContactFormOpen={isContactFormOpen}>Linktree</FloatingLink>
       <FloatingLink href="https://github.com/lpolish" position={[6, 4, -6]} isContactFormOpen={isContactFormOpen}>GitHub</FloatingLink>
-      <FloatingLink href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Book Pair Programming</FloatingLink>
+      <FloatingLink href="https://cal.com/luis-pulido" position={[-4, 4, -7]} isContactFormOpen={isContactFormOpen}>Book Pair Programming</FloatingLink>
       <FloatingLink position={[-3, -2, -6]} onClick={() => setShowContactForm(true)} isContactFormOpen={isContactFormOpen}>Contact</FloatingLink>
       <directionalLight position={[5, 5, 5]} intensity={0.5} />
     </>
@@ -367,7 +367,7 @@ export function EnvironmentShowcase() {
       <div className="absolute top-[60px] left-0 right-0 z-10 bg-black bg-opacity-30 text-white backdrop-blur-md">
         <div className="container mx-auto px-4 py-2">
           <p className="uppercase text-2xs text-left">
-            <a className="hover:underline cursor-pointer text-2xs" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>Contact Me to Build Your Next Web Project</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://calendar.google.com/calendar/appointments/AcZssZ1x_Avc7CEO0ABnqDxWR8vuSoZ9SwKV3llSUu4=?gv=true" target="_blank" rel="noopener noreferrer">Book a Pair Programming Session</a>
+            <a className="hover:underline cursor-pointer text-2xs" onClick={(e) => { e.preventDefault(); setShowContactForm(true) }}>Contact Me to Build Your Next Web Project</a> or <a className="hover:underline cursor-pointer text-2xs" href="https://cal.com/luis-pulido" target="_blank" rel="noopener noreferrer">Book a Pair Programming Session</a>
           </p>
         </div>
       </div>
