@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const menuItems = [
   { name: "Home", path: "/" },
-  { name: "SummaQ QMS (Spanish)", path: "https://summaq.com" },
+  { name: "Hacker News and Tasks", path: "https://www.hackeroso.com" },
   { name: "Alebrijes", path: "/alebrijes" },
   { name: "X", path: "https://twitter.com/pulidoman" },
   { name: "Instagram", path: "https://instagram.com/polishaii" },
