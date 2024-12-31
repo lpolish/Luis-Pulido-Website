@@ -15,7 +15,7 @@ export function Header() {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "SummaQ QMS (Spanish)", path: "https://summaq.com" },
+    { name: "Hacker News and Tasks", path: "https://www.hackeroso.com" },
     { name: "Alebrijes", path: "/alebrijes" },
     { name: "Audio Visualizers", path: "/audio-visualizers" },
     { name: "X", path: "https://twitter.com/pulidoman" },
